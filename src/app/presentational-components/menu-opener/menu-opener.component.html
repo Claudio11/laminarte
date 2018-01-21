@@ -1,4 +1,11 @@
 <div class="content-container"
-     [ngClass]="{ 'open': open }">
+     [ngClass]="{ 'open': open }"
+     [@menuOpened]="open">
+
+  <div class="close-button"
+      (click)="toggleVisibility.emit($event)">
+    x
+  </div>
+
   <ng-content></ng-content>
 </div>

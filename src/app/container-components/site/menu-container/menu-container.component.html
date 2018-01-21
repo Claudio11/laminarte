@@ -1,7 +1,9 @@
-<div class="menu-container">
-  menu-container content
-</div>
+<laminarte-menu-opener
+  [open]="open"
+  (toggleVisibility)="toggleVisibility.emit($event)">
 
-<laminarte-menu-opener [open]="open">
-  Menu content
+  <div class="menu-content-container">
+    Menu ng content
+  </div>
+
 </laminarte-menu-opener>

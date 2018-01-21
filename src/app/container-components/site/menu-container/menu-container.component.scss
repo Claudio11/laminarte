@@ -5,14 +5,8 @@
   top: 0;
   right: 0;
 
-  .menu-container {
-    position: absolute;
-    overflow: hidden;
-  }
-
-  .close-button {
-    position: absolute;
-    left: -20px;
-    cursor: pointer;
+  .menu-content-container {
+    height: 100%;
+    background-color: grey;
   }
 }

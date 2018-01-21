@@ -9,7 +9,7 @@ export class MenuContainerComponent implements OnInit {
 
   @Input() open: boolean = false;
 
-  @Output() toggleOpen = new EventEmitter();
+  @Output() toggleVisibility = new EventEmitter();
 
   constructor() { }
 

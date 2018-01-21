@@ -2,15 +2,13 @@
   site works!
 </p>
 
-<div class="close-button"
-     (click)="menuService.toggleVisibility()">
-  x
+<div>
+
+  <laminarte-menu-container
+    [open]="menuService.open$ | async"
+    (toggleVisibility)="menuService.toggleVisibility()">
+  </laminarte-menu-container>
+
 </div>
-
-<laminarte-menu-container
-  [open]="menuService.open$ | async"
-  (toggleOpen)="menuService.toggleVisibility()">
-
-</laminarte-menu-container>
 
 <router-outlet></router-outlet>
