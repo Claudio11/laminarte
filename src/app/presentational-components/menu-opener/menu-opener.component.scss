@@ -1,0 +1,28 @@
+:host {
+
+    .content-container {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+
+      /* The following attributes depend on the MenuPosition of the current component,
+        set different classes depending on position attribute, for this example, using MenuPosition.RIGHT */
+
+      right: -100%;
+
+      &.open {
+        right: 0;
+      }
+
+      /* Menu in left position */
+      &.left {
+        left: 0; /* etc */
+      }
+
+      &.left.open {
+        left: -100%; /* etc */
+      }
+    }
+
+}
