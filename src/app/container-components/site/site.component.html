@@ -5,5 +5,22 @@
 
 <!-- <router-outlet></router-outlet>  For now not using router, check if it is worthy -->
 
-<laminarte-home></laminarte-home>
-<laminarte-about></laminarte-about>
+<div mnFullpage
+  [mnFullpageScrollOverflow]="true">
+
+  <div class="section welcome-section fp-section fp-table">
+    <div class="fp-tableCell">
+      <laminarte-home></laminarte-home>
+    </div>
+  </div>
+  <div class="section welcome-section fp-section fp-table">
+    <div class="fp-tableCell">
+      <laminarte-about></laminarte-about>
+    </div>
+  </div>
+  <div class="section welcome-section fp-section fp-table">
+    <div class="fp-tableCell">
+      <laminarte-products></laminarte-products>
+    </div>
+  </div>
+</div>

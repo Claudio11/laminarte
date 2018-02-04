@@ -2,6 +2,7 @@
 // tslint:disable:quotemark
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MnFullpageModule } from 'ngx-fullpage';
 
 import { HomeComponent } from './home/home.component';
 import { MenuContainerComponent } from './menu-container/menu-container.component';
@@ -15,7 +16,8 @@ import { ContactComponent } from './contact/contact.component';
 @NgModule({
   imports: [
     CommonModule,
-    SiteRouteModule
+    SiteRouteModule,
+    MnFullpageModule.forRoot()
   ],
   declarations: [
     HomeComponent,

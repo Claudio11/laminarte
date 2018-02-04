@@ -1,0 +1,9 @@
+:host {
+  .viewport {
+    height: 100%;
+    overflow-y: auto;
+    .content {
+      height: 2000px; // Hardcoded for now, remove to adapt to content.
+    }
+  }
+}
