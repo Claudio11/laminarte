@@ -10,7 +10,6 @@ import { SiteRouteModule } from './site.route';
 import { SiteComponent } from './site.component';
 import { AboutComponent } from './about/about.component';
 import { ProductsComponent } from './products/products.component';
-import { ServicesComponent } from './services/services.component';
 import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
@@ -25,7 +24,6 @@ import { ContactComponent } from './contact/contact.component';
     SiteComponent,
     AboutComponent,
     ProductsComponent,
-    ServicesComponent,
     ContactComponent
   ],
   exports: [

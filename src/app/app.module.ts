@@ -8,10 +8,12 @@ import { SiteModule } from './container-components/site/site.module';
 import { MenuService } from './services/menu-service/menu.service';
 import { AppComponent } from './app.component';
 import { AppRouteModule } from './app.route';
+import { SectionDirective } from './directives/section/section.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SectionDirective
   ],
   imports: [
     BrowserModule,
