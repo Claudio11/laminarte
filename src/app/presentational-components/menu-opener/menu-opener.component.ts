@@ -25,7 +25,7 @@ import { MenuPosition } from '../../enums/menu-position.enum';
         right: '-100%'
       })),
       transition('* => *', animate('0.5s')),
-      //transition(':enter', animate(0))
+      //transition(':enter', animate(0)) // TODO: Prevent animation on start.
     ]),
   ],
   styleUrls: ['./menu-opener.component.scss']
