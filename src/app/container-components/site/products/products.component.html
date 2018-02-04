@@ -1,5 +1,18 @@
 <div class="viewport">
   <div class="content">
-    Products
+    <div class="header">
+      Products
+    </div>
+    <div class="sections-container">
+      <div
+        *ngFor="let product of products"
+        class="section-container">
+
+        <laminarte-card
+          [item]="product">
+        </laminarte-card>
+
+      </div>
+    </div>
   </div>
 </div>

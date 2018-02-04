@@ -9,6 +9,7 @@ import { MenuService } from './services/menu-service/menu.service';
 import { AppComponent } from './app.component';
 import { AppRouteModule } from './app.route';
 import { SectionDirective } from './directives/section/section.directive';
+import { ProductService } from './services/product-service/product.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SectionDirective } from './directives/section/section.directive';
     SiteModule
   ],
   providers: [
-    MenuService
+    MenuService,
+    ProductService
   ],
   exports: [
 

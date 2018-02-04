@@ -12,6 +12,7 @@ import { SiteComponent } from './site.component';
 import { AboutComponent } from './about/about.component';
 import { ProductsComponent } from './products/products.component';
 import { ContactComponent } from './contact/contact.component';
+import { CardComponent } from '../../presentational-components/card/card.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { ContactComponent } from './contact/contact.component';
     SiteComponent,
     AboutComponent,
     ProductsComponent,
-    ContactComponent
+    ContactComponent,
+    CardComponent
   ],
   exports: [
   ],
