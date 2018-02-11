@@ -13,6 +13,7 @@ import { AboutComponent } from './about/about.component';
 import { ProductsComponent } from './products/products.component';
 import { ContactComponent } from './contact/contact.component';
 import { CardComponent } from '../../presentational-components/card/card.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { CardComponent } from '../../presentational-components/card/card.compone
     AboutComponent,
     ProductsComponent,
     ContactComponent,
-    CardComponent
+    CardComponent,
+    ProductDetailComponent
   ],
   exports: [
   ],

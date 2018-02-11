@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MnFullpageService } from 'ngx-fullpage';
 
 import { ProductService } from '../../../services/product-service/product.service';
 import { Product } from '../../../models/product.model';
@@ -12,10 +13,20 @@ export class ProductsComponent implements OnInit {
 
   private products: Product[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private mnFullpageService: MnFullpageService
+  ) { }
 
   ngOnInit() {
-    this.productService.get().subscribe(products => this.products = products);
+
+  }
+
+  ngAfterViewInit() {
+    this.productService.get().subscribe(products => {
+      this.products = products;
+      this.mnFullpageService.reBuild();
+    });
   }
 
 }

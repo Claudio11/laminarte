@@ -6,7 +6,7 @@
     height: 100%;
     overflow-y: auto;
     .content {
-      height: 2000px; // Hardcoded for now, remove to adapt to content.
+      height: auto;
     }
   }
 
@@ -19,6 +19,10 @@
       min-width: 200px;
       min-height: 240px;
       padding: 8px 14px;
+
+      a {
+        text-decoration: none;
+      }
     }
   }
 }

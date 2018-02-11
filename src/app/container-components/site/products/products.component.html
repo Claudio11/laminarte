@@ -8,9 +8,11 @@
         *ngFor="let product of products"
         class="section-container">
 
-        <laminarte-card
-          [item]="product">
-        </laminarte-card>
+        <a [routerLink]="['./products', 'hardcodedId']">
+          <laminarte-card
+            [item]="product">
+          </laminarte-card>
+        </a>
 
       </div>
     </div>
