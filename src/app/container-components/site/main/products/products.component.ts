@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MnFullpageService } from 'ngx-fullpage';
 
-import { ProductService } from '../../../services/product-service/product.service';
-import { Product } from '../../../models/product.model';
+import { ProductService } from '../../../../services/product-service/product.service';
+import { Product } from '../../../../models/product.model';
 
 @Component({
   selector: 'laminarte-products',
