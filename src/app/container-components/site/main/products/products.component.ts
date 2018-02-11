@@ -19,10 +19,6 @@ export class ProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-  }
-
-  ngAfterViewInit() {
     this.productService.get().subscribe(products => {
       this.products = products;
       this.mnFullpageService.reBuild();

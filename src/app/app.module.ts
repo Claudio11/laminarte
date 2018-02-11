@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+//import { MnFullpageModule } from 'ngx-fullpage';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SiteModule } from './container-components/site/site.module';
 
@@ -21,13 +23,16 @@ import { ProductService } from './services/product-service/product.service';
     FormsModule,
     HttpModule,
     AppRouteModule,
-    SiteModule
+    SiteModule,
+    BrowserAnimationsModule
+    //MnFullpageModule.forRoot()
   ],
   providers: [
     MenuService,
     ProductService
   ],
   exports: [
+    //MnFullpageModule
 
   ],
   bootstrap: [AppComponent]
