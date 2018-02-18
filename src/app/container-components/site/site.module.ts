@@ -15,6 +15,8 @@ import { ContactComponent } from './main/contact/contact.component';
 import { CardComponent } from '../../presentational-components/card/card.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { MainComponent } from './main/main.component';
+import { BasicCardComponent } from '../../presentational-components/basic-card/basic-card.component';
+import { ServicesComponent } from './main/services/services.component';
 
 @NgModule({
   imports: [
@@ -32,7 +34,9 @@ import { MainComponent } from './main/main.component';
     ContactComponent,
     CardComponent,
     ProductDetailComponent,
-    MainComponent
+    MainComponent,
+    BasicCardComponent,
+    ServicesComponent
   ],
   exports: [
   ],

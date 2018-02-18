@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ProductService } from '../../../services/product-service/product.service';
+import { Product } from '../../../models/product.model';
+
 @Component({
   selector: 'laminarte-main',
   templateUrl: './main.component.html',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  private products: Product[] = [];
+
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
+    this.productService.get().subscribe(products => {
+      this.products = products;
+      //this.mnFullpageService.reBuild();
+    });
   }
 
 }

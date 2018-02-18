@@ -81,7 +81,7 @@ export class Product implements Previewable {
   getPreviewData() {
     return {
       title: this.name,
-      subtitle: "",
+      subtitle: this.description,
       mainImg: this.thumbnail || ''
     };
   }

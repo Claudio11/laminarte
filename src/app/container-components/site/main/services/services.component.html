@@ -1,0 +1,24 @@
+<div class="services-header">
+  Services header
+</div>
+
+<div class="services-body">
+  <div class="services-container">
+
+    <div
+      class="service-container"
+      *ngFor="let product of products | slice:0:4"
+    >
+
+      <div class="product-image-container">
+        <!-- TODO: Switch by product image -->
+        <img src="assets/dummy/skyline.png" class="product-image" alt="">
+      </div>
+
+      <div class="card-container">
+        <laminarte-basic-card [item]="product"></laminarte-basic-card>
+      </div>
+    </div>
+
+  </div>
+</div>

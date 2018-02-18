@@ -3,16 +3,17 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../../../models/product.model';
 
 @Component({
-  selector: 'laminarte-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  selector: 'laminarte-services',
+  templateUrl: './services.component.html',
+  styleUrls: ['./services.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ServicesComponent implements OnInit {
 
   @Input() products: Product[] = [];
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
 }
