@@ -1,3 +1,23 @@
-<p>
-  about works!
-</p>
+<div class="about-header">
+  About header
+</div>
+
+<div class="about-body">
+
+  <div class="about-logo">
+    <img src="assets/shared/logo/main-logo.png" alt="">
+  </div>
+
+  <div class="about-content">
+
+    <div class="attributes-container">
+      <laminarte-basic-card
+        *ngFor="let item of items"
+        [item]="item">
+
+      </laminarte-basic-card>
+    </div>
+
+  </div>
+
+</div>

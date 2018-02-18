@@ -1,0 +1,36 @@
+:host {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  .about-header {
+    flex-grow: 1;
+  }
+
+  .about-body {
+    flex-grow: 3;
+    display: flex;
+
+    & > div {
+      flex-basis: 50%;
+    }
+
+    .about-logo {
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
+
+    .about-content {
+      position: relative;
+      align-items: center;
+      display: flex;
+
+      .attributes-container {
+        width: 70%;
+      }
+    }
+  }
+}
