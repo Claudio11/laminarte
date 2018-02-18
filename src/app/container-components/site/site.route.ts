@@ -12,11 +12,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: MainComponent
+        component: MainComponent,
+        data: { state: 'main' }
       },
       {
         path: 'products/:id',
         component: ProductDetailComponent,
+        data: { state: 'product-detail' }
         // resolve: {
         //   product: EntityResolver
         // },
