@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { MnFullpageService } from 'ngx-fullpage';
 
 import { ProductService } from '../../../services/product-service/product.service';
@@ -15,12 +15,16 @@ export class MainComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private mnFullpageService: MnFullpageService) { }
+    private mnFullpageService: MnFullpageService,
+    private ngZone: NgZone
+  ) { }
 
   ngOnInit() {
     this.productService.get().subscribe(products => {
       this.products = products;
-      //this.mnFullpageService.reBuild();
+      this.ngZone.onStable.first().subscribe(() => {
+        //this.mnFullpageService.reBuild(); // Still failing because of "getPaddings is not defined" issue.
+      });
     });
   }
 
