@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener } from '@angular/core';
 import { MnFullpageService } from 'ngx-fullpage';
 
 import { ProductService } from '../../../services/product-service/product.service';
@@ -13,6 +13,11 @@ export class MainComponent implements OnInit {
 
   private products: Product[] = [];
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.mnFullpageService.reBuild();
+  }
+
   constructor(
     private productService: ProductService,
     private mnFullpageService: MnFullpageService,
@@ -23,7 +28,12 @@ export class MainComponent implements OnInit {
     this.productService.get().subscribe(products => {
       this.products = products;
       this.ngZone.onStable.first().subscribe(() => {
-        //this.mnFullpageService.reBuild(); // Still failing because of "getPaddings is not defined" issue.
+        console.log(this.mnFullpageService);
+
+        //TODO => Add fix to "getPaddings" issue, (for now working because library is modified manually
+        // (https://github.com/alvarotrigo/fullPage.js/commit/f0bcdd59393723d075b6c9544a69a434d510d3a5) from https://github.com/alvarotrigo/fullPage.js/issues/3095,
+        // to avoid blocking of further development).
+        this.mnFullpageService.reBuild(); // Here failing because of "getPaddings is not defined" issue.
       });
     });
   }
