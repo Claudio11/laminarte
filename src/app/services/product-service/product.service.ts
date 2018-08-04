@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { of } from 'rxjs';
 
 import { Product } from '../../models/product.model';
 
@@ -23,7 +23,7 @@ export class ProductService {
       new Product('regalos', 'Laminarte regalos', 'descripcion regalos', 'thumbnail1regalos.png', ['image1regalos.png']),
       new Product('foil', 'Laminarte foil', 'descripcion foil', 'thumbnail1foil.png', ['image1foil.png'])
     ];
-    return Observable.of(products);
+    return of(products);
   }
 
 }

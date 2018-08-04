@@ -34,7 +34,7 @@ const routerTransition = trigger('routerTransition', [
 })
 export class SiteComponent implements OnInit {
 
-  constructor(private menuService: MenuService) { }
+  constructor(public menuService: MenuService) { }
 
   ngOnInit() {
   }

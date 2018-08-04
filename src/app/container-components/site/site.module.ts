@@ -2,7 +2,6 @@
 // tslint:disable:quotemark
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MnFullpageModule } from 'ngx-fullpage';
 
 import { HomeComponent } from './main/home/home.component';
 import { MenuContainerComponent } from './menu-container/menu-container.component';
@@ -17,12 +16,13 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { MainComponent } from './main/main.component';
 import { BasicCardComponent } from '../../presentational-components/basic-card/basic-card.component';
 import { ServicesComponent } from './main/services/services.component';
+import { ScrollerDirective } from '../../directives/scroller/scroller.directive';
+import { ScrollerItemDirective } from '../../directives/scroller/scroller-item/scroller-item.directive';
 
 @NgModule({
   imports: [
     CommonModule,
-    SiteRouteModule,
-    MnFullpageModule.forRoot()
+    SiteRouteModule
   ],
   declarations: [
     HomeComponent,
@@ -36,9 +36,13 @@ import { ServicesComponent } from './main/services/services.component';
     ProductDetailComponent,
     MainComponent,
     BasicCardComponent,
-    ServicesComponent
+    ServicesComponent,
+    ScrollerDirective,
+    ScrollerItemDirective
   ],
   exports: [
+    ScrollerDirective,
+    ScrollerItemDirective
   ],
   entryComponents: [
   ]

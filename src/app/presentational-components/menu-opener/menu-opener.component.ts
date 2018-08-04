@@ -3,13 +3,16 @@ import {
   OnInit,
   Input,
   Output,
-  EventEmitter,
+  EventEmitter
+} from '@angular/core';
+
+import {
   trigger,
   transition,
   style,
   animate,
   state
-} from '@angular/core';
+} from '@angular/animations';
 
 import { MenuPosition } from '../../enums/menu-position.enum';
 
