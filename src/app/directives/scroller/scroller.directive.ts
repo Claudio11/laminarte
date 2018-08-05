@@ -7,7 +7,7 @@ import { ScrollerItemDirective } from './scroller-item/scroller-item.directive';
 })
 export class ScrollerDirective {
 
-  private lastWindowYOffset: number = window.pageYOffset;
+  private lastViewportOffset: number = window.pageYOffset;
   private sections: ScrollerItemDirective[] = [];
   private currentSectionIndex: number = 0;
 
@@ -16,7 +16,7 @@ export class ScrollerDirective {
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
     this.repositionIfNeeded(window);
-    this.lastWindowYOffset = window.pageYOffset;
+    this.lastViewportOffset = window.pageYOffset;
 
     //console.log('scroll event', window.pageYOffset);
     //console.log('current', this.element.nativeElement.scrollTop);
@@ -39,7 +39,7 @@ export class ScrollerDirective {
    * Returns true if the user is scrolling down, false otherwise.
    */
   private scrollingDown(window: Window) {
-    return window.pageYOffset > this.lastWindowYOffset;
+    return window.pageYOffset > this.lastViewportOffset;
   }
 
   /**
@@ -56,67 +56,51 @@ export class ScrollerDirective {
   // }
 
   /**
-   * Returns true if the user is scrolling, and leaving the current section
-   * because of that scrolling.
+   * Scrolls to a section, depending if the user is srolling out of a section.
+   *
+   * @param Current window.
+   * @param scrollingDown True if the user is scrolling down, false otherwise.
    */
-  private scrollToCorrectSection(window: Window) {
+  private scrollToCorrectSection(window: Window, scrollingDown: boolean) {
     const viewportTopOffsetY: number = window.pageYOffset;
     const viewportHeight: number = window.innerHeight; // TODO: Later change for element height.
     const viewportBottomOffsetY: number = viewportTopOffsetY + viewportHeight;
 
-    // console.log('currentWindowScrollTop', viewportTopOffsetY);
-    // console.log('currentViewportHeight', viewportHeight);
-    // console.log('bottomScrollPosition', viewportBottomOffsetY);
-
-    // this.sections.forEach((section, i) => {
-    //   const sectionBottomY: number = section.getOffsetTop() + section.getHeight();
-
-    //   const viewportBottomIsBelowSectionBottom: boolean =
-    //     viewportBottomOffsetY > sectionBottomY
-
-    //   if (viewportBottomIsBelowSectionBottom) {
-    //     const sectionHeightLargerThanViewportHeight: boolean =
-    //       section.getHeight() > viewportHeight;
-    //     const sectionBottomBelowViewportBottom: boolean =
-    //       viewportTopOffsetY < sectionBottomY;
-    //     // const sectionVisibleInViewport: boolean =
-    //     //   viewportBottomIsBelowSectionBottom && sectionBottomBelowViewportBottom;
-
-    //     const needsToScrollPosition: boolean =
-    //       sectionHeightLargerThanViewportHeight
-    //         ? viewportTopOffsetY < section.getOffsetTop()
-    //         : ;
-
-
-    //     if (needsToScrollPosition) {
-    //       window.scrollTo({
-    //         top: section.getOffsetTop()
-    //       });
-    //     }
-    //     console.log(section.getOffsetTop());
-    //   }
-
-    // });
-
-
     if (this.sections && this.sections[this.currentSectionIndex]) {
 
-      // When scrolling down.
-      if (this.sections[this.currentSectionIndex + 1]) {
-        const nextSection = this.sections[this.currentSectionIndex + 1];
+      if (scrollingDown) {
 
-        const nextSectionTopIsAboveViewportBottom: boolean =
-          nextSection.getOffsetTop() < viewportBottomOffsetY;
+        if (this.sections[this.currentSectionIndex + 1]) {
+          const nextSection = this.sections[this.currentSectionIndex + 1];
 
-        if (nextSectionTopIsAboveViewportBottom) {
-          this.currentSectionIndex = this.currentSectionIndex + 1;
-          window.scrollTo({
-            top: nextSection.getOffsetTop()
-          });
+          const nextSectionTopIsAboveViewportBottom: boolean =
+            nextSection.getOffsetTop() < viewportBottomOffsetY;
+
+          if (nextSectionTopIsAboveViewportBottom) {
+            this.currentSectionIndex = this.currentSectionIndex + 1;
+            window.scrollTo({
+              top: nextSection.getOffsetTop(),
+              behavior: 'smooth' // TODO: Create fallback.
+            });
+          }
         }
       }
       else {
-        // TODO: Reached the end.
+        if (this.sections[this.currentSectionIndex - 1]) {
+          const previousSection = this.sections[this.currentSectionIndex - 1];
+          const previousSectionBottom = previousSection.getOffsetTop() + previousSection.getHeight();
+
+          const previousSectionBottomIsBelowViewportTop: boolean =
+            previousSectionBottom > viewportTopOffsetY;
+
+          if (previousSectionBottomIsBelowViewportTop) {
+            this.currentSectionIndex = this.currentSectionIndex - 1;
+            window.scrollTo({
+              top: previousSection.getOffsetTop(),
+              behavior: 'smooth' // TODO: Create fallback.
+            });
+          }
+        }
       }
 
     }
@@ -126,9 +110,7 @@ export class ScrollerDirective {
    * Scrolls to the correct section.
    */
   private repositionIfNeeded(window: Window) {
-    //if (this.leavingSection(window)) {
-    this.scrollToCorrectSection(window)
-    //}
+    this.scrollToCorrectSection(window, this.scrollingDown(window))
   }
 
   /**
