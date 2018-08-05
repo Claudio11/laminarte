@@ -15,24 +15,14 @@ export class ScrollerDirective {
 
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
-    this.repositionIfNeeded(window);
+    this.scrollToCorrectSection(window, this.scrollingDown(window));
     this.lastViewportOffset = window.pageYOffset;
-
-    //console.log('scroll event', window.pageYOffset);
-    //console.log('current', this.element.nativeElement.scrollTop);
   }
 
   constructor(private element: ElementRef) { }
 
   ngAfterContentInit() {
-    // contentChildren is set
-    console.log('sections', this.sections);
     this.sections = this.sectionsQueryList.toArray();
-    console.log('a', this.sections[1])
-    // this.sectionsQueryList.changes.subscribe(sections => {
-    //   //this.sections = sections
-    //   console.log('this.sectionsQueryList.toArray()', this.sectionsQueryList.toArray());
-    // });
   }
 
   /**
@@ -43,17 +33,54 @@ export class ScrollerDirective {
   }
 
   /**
-   * Returns true if the user is scrolling, and leaving the current section
-   * because of that scrolling.
+   * Returns the incoming section if the user scrolls in the given direction.
+   *
+   * @param scrollingDown True if the user is scrolling down, false otherwise.
    */
-  // private leavingSection(window: Window) {
-  //   const scrollingDownAndLeavingSection: boolean =
-  //     this.scrollingDown(window) && ...
-  //   const scrollingUpAndLeavingSection: boolean =
-  //     !this.scrollingDown(window) && ...
+  private getIncomingSection(scrollingDown: boolean) {
+    return scrollingDown ? this.sections[this.currentSectionIndex + 1] : this.sections[this.currentSectionIndex - 1];
+  }
 
-  //   return scrollingDownAndLeavingSection || scrollingUpAndLeavingSection;
-  // }
+  /**
+   * Returns the incoming section if the user scrolls in the given direction.
+   *
+   * @param scrollingDown True if the user is scrolling down, false otherwise.
+   */
+  private setIncomingSectionAsCurrent(scrollingDown: boolean) {
+    scrollingDown ? this.currentSectionIndex++ : this.currentSectionIndex--;
+  }
+
+  /**
+   * Returns true if the conditions are given in order to switch to a different
+   * section, false otherwise.
+   *
+   * @param incomingSection
+   * @param scrollingDown True if the user is scrolling down, false otherwise.
+   *
+   * @return True if condtions are met in order to switch to a differente section,
+   * false otherwise.
+   */
+  private conditionsMetToSwitchSection(
+    incomingSection: ScrollerItemDirective,
+    scrollingDown: boolean
+  ): boolean {
+    const viewportTopOffsetY: number = window.pageYOffset;
+    const viewportHeight: number = window.innerHeight; // TODO: Later change for element height.
+    const viewportBottomOffsetY: number = viewportTopOffsetY + viewportHeight;
+    let conditionsMet: boolean = false;
+
+    if (incomingSection) {
+      if (scrollingDown) {
+        conditionsMet = incomingSection.getOffsetTop() < viewportBottomOffsetY;
+      }
+      else {
+        const incomingSectionBottom = incomingSection.getOffsetTop() + incomingSection.getHeight();
+        conditionsMet = incomingSectionBottom > viewportTopOffsetY;
+      }
+    }
+
+    return conditionsMet;
+  }
 
   /**
    * Scrolls to a section, depending if the user is srolling out of a section.
@@ -62,69 +89,16 @@ export class ScrollerDirective {
    * @param scrollingDown True if the user is scrolling down, false otherwise.
    */
   private scrollToCorrectSection(window: Window, scrollingDown: boolean) {
-    const viewportTopOffsetY: number = window.pageYOffset;
-    const viewportHeight: number = window.innerHeight; // TODO: Later change for element height.
-    const viewportBottomOffsetY: number = viewportTopOffsetY + viewportHeight;
-
     if (this.sections && this.sections[this.currentSectionIndex]) {
+      const incomingSection: ScrollerItemDirective = this.getIncomingSection(scrollingDown);
 
-      if (scrollingDown) {
-
-        if (this.sections[this.currentSectionIndex + 1]) {
-          const nextSection = this.sections[this.currentSectionIndex + 1];
-
-          const nextSectionTopIsAboveViewportBottom: boolean =
-            nextSection.getOffsetTop() < viewportBottomOffsetY;
-
-          if (nextSectionTopIsAboveViewportBottom) {
-            this.currentSectionIndex = this.currentSectionIndex + 1;
-            window.scrollTo({
-              top: nextSection.getOffsetTop(),
-              behavior: 'smooth' // TODO: Create fallback.
-            });
-          }
-        }
+      if (this.conditionsMetToSwitchSection(incomingSection, scrollingDown)) {
+        window.scrollTo({
+          top: incomingSection.getOffsetTop(),
+          behavior: 'smooth' // TODO: Create fallback.
+        });
+        this.setIncomingSectionAsCurrent(scrollingDown);
       }
-      else {
-        if (this.sections[this.currentSectionIndex - 1]) {
-          const previousSection = this.sections[this.currentSectionIndex - 1];
-          const previousSectionBottom = previousSection.getOffsetTop() + previousSection.getHeight();
-
-          const previousSectionBottomIsBelowViewportTop: boolean =
-            previousSectionBottom > viewportTopOffsetY;
-
-          if (previousSectionBottomIsBelowViewportTop) {
-            this.currentSectionIndex = this.currentSectionIndex - 1;
-            window.scrollTo({
-              top: previousSection.getOffsetTop(),
-              behavior: 'smooth' // TODO: Create fallback.
-            });
-          }
-        }
-      }
-
     }
   }
-
-  /**
-   * Scrolls to the correct section.
-   */
-  private repositionIfNeeded(window: Window) {
-    this.scrollToCorrectSection(window, this.scrollingDown(window))
-  }
-
-  /**
-   * Scrolls to the previous section if available.
-   */
-  private previousSection(window: Window) {
-
-  }
-
-  /**
-   * Scrolls to the next section if available.
-   */
-  private nextSection(window: Window) {
-
-  }
-
 }
