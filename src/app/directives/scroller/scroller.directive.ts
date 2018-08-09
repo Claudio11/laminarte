@@ -1,28 +1,54 @@
 import { Directive, AfterContentInit, ContentChildren, QueryList, HostListener, ElementRef } from '@angular/core';
+import { BehaviorSubject, timer } from "rxjs";
+import { throttleTime } from 'rxjs/operators';
 
 import { ScrollerItemDirective } from './scroller-item/scroller-item.directive';
+
+interface ScrollMetadata {
+  incomingSection: ScrollerItemDirective;
+  scrollingDown: boolean;
+}
 
 @Directive({
   selector: '[laminarteScroller]'
 })
 export class ScrollerDirective {
 
-  private lastViewportOffset: number = window.pageYOffset;
-  private sections: ScrollerItemDirective[] = [];
-  private currentSectionIndex: number = 0;
+  protected lastViewportOffset: number = window.pageYOffset;
+  protected sections: ScrollerItemDirective[] = [];
+  protected currentSectionIndex: number = 0;
+
+  protected switchSection$: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
+  protected elementScroll$: BehaviorSubject<Event> = new BehaviorSubject<any>(undefined); // Imperative so it's able to unsubscribe.
 
   @ContentChildren(ScrollerItemDirective) sectionsQueryList: QueryList<ScrollerItemDirective>;
 
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
-    this.scrollToCorrectSection(window, this.scrollingDown(window));
-    this.lastViewportOffset = window.pageYOffset;
+    this.elementScroll$.next(event);
   }
 
-  constructor(private element: ElementRef) { }
+  constructor(protected element: ElementRef) { }
 
   ngAfterContentInit() {
     this.sections = this.sectionsQueryList.toArray();
+
+    this.switchSection$
+      .subscribe(scrollMetadata => {
+        //console.log('scrollMetadata', scrollMetadata);
+        if (scrollMetadata) {
+          // Replace animated scroll by requestAnimationFrame (https://developer.mozilla.org/en-US/docs/Web/Events/scroll), may be the cause of not being able to throttle.
+          window.scrollTo({
+            top: scrollMetadata.incomingSection ? scrollMetadata.incomingSection.getOffsetTop() : 0,
+            behavior: 'smooth' // TODO: Create fallback.
+          });
+          this.setIncomingSectionAsCurrent(scrollMetadata.scrollingDown);
+        }
+      });
+
+    this.elementScroll$
+      //.pipe(throttleTime(1000)) // TODO: Doesn't work, also misplace the section (?).
+      .subscribe(event => this.onElementScroll(event));
   }
 
   /**
@@ -93,12 +119,15 @@ export class ScrollerDirective {
       const incomingSection: ScrollerItemDirective = this.getIncomingSection(scrollingDown);
 
       if (this.conditionsMetToSwitchSection(incomingSection, scrollingDown)) {
-        window.scrollTo({
-          top: incomingSection.getOffsetTop(),
-          behavior: 'smooth' // TODO: Create fallback.
-        });
-        this.setIncomingSectionAsCurrent(scrollingDown);
+        const scrollMetadata: ScrollMetadata = { incomingSection, scrollingDown }
+        this.switchSection$.next(scrollMetadata);
       }
     }
+  }
+
+  private onElementScroll(event: Event) {
+    console.log('event', event)
+    this.scrollToCorrectSection(window, this.scrollingDown(window));
+    this.lastViewportOffset = window.pageYOffset;
   }
 }
