@@ -1,0 +1,25 @@
+:host {
+  .header-container {
+    text-align: center;
+
+    .title-container, .subtitle-container {
+      font-family: nunito-light;
+    }
+
+    .title-container {
+      font-size: 3em;
+      text-transform: uppercase;
+      margin: 38px 0 8px 0;
+    }
+
+    .subtitle-container {
+      font-size: 0.8em;
+      color: #c0c0c0;
+    }
+
+    .separator {
+
+    }
+
+  }
+}

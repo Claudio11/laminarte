@@ -16,6 +16,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { MainComponent } from './main/main.component';
 import { BasicCardComponent } from '../../presentational-components/basic-card/basic-card.component';
 import { ServicesComponent } from './main/services/services.component';
+import { SectionHeaderComponent } from '../../presentational-components/section-header/section-header.component';
 import { ScrollerDirective } from '../../directives/scroller/scroller.directive';
 import { ScrollerItemDirective } from '../../directives/scroller/scroller-item/scroller-item.directive';
 
@@ -37,6 +38,7 @@ import { ScrollerItemDirective } from '../../directives/scroller/scroller-item/s
     MainComponent,
     BasicCardComponent,
     ServicesComponent,
+    SectionHeaderComponent,
     ScrollerDirective,
     ScrollerItemDirective
   ],

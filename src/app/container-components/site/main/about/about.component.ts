@@ -1,22 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { MenuItem } from "../../../../models/menu-item.model";
 import { AttributeItem } from '../../../../models/attribute-item.model';
+import { SectionComponent } from '../../../../presentational-components/section/section.component';
+import { SectionsDataService } from '../../../../services/sections-data/sections-data.service';
 
 @Component({
   selector: 'laminarte-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent {
+
+  private menuItem: MenuItem;
 
   public items: AttributeItem[] = [ // TODO: Retrieve from db?
-    new AttributeItem('NOSOTROS', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elit ante, tempor sit amet neque sed, dictum consequat enim. Pellentesque luctus nunc nisi, sed facilisis mi facilisis vitae. Maecenas vehicula rutrum leo ut consequat. Sed feugiat lacinia ex a lobortis. Vivamus sagittis lacinia mauris, vel facilisis sapien vulputate nec.'),
-    new AttributeItem('MISION', 'Sed gravida libero finibus faucibus ultricies. Aenean tellus urna, dictum ac libero eu, feugiat rhoncus ligula. Morbi ut justo eget nibh auctor vestibulum non sed nulla. Aliquam erat volutpat. Cras justo ex, sodales nec risus nec, pretium facilisis lectus. In scelerisque justo et facilisis dictum. Aenean porttitor mi eget eros eleifend, et lobortis sapien suscipit. Vestibulum consectetur cursus orci, sit amet vehicula neque convallis quis. In nec tincidunt lectus, at varius lectus. Nunc aliquet rhoncus lorem vitae elementum.'),
-    new AttributeItem('VISION', 'Morbi auctor imperdiet odio maximus aliquam. Quisque ac porta arcu, ut pellentesque leo. Ut ut congue purus. Ut porttitor augue quis mauris vehicula, gravida tempor augue maximus. Mauris vitae mauris nunc. Ut id orci a magna fringilla fringilla vel eu felis. Morbi ipsum nisl, pellentesque vel fermentum quis, dictum at mi. ')
+    new AttributeItem('NOSOTROS', 'Somos una empresa joven en el mercado dedicado al diseño y realización de cuadros decorativos, productos personalizados, decoración para fiestas y eventos y cartelería. Además hacemos diseño gráfico y web. Manejamos diseños exclusivos y originales. Conocenos!'),
+    new AttributeItem('MISION', 'Nos hemos propuesto llegar a  todo tipo de espacios y productos para decorarlos y diseñarlos de forma novedosa, práctica, creativa, funcional,  muy personal, y sobre todo basándonos en las últimas tendencias en diseño y decoración. Es por eso que nuestro objetivo principal es  estimular  el interés por la decoración para el hogar y para cualquier tipo de evento, además de plasmar las ideas de nuestros clientes, en los productos que ofrecemos, y sobretodo dar un servicio 100% personalizado, que se adapte a su necesidad.'),
+    new AttributeItem('VISION', 'Ser la empresa líder en el mercado, ofreciendo una amplia gama de posibilidades para nuestros clientes. Asi mismo, promover el interés por adquirir nuestros servicios y productos, mediante una atención personalizada cálida y eficiente. Seguir creciendo día a día, desde el respeto, y la valoración hacia nuestros clientes.')
   ]
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private sectionsDataService: SectionsDataService) {
+    this.menuItem = sectionsDataService.getMenuItemByKey('nosotros'); // TODO: Put key in constants.
   }
 
 }

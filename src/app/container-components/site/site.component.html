@@ -1,10 +1,11 @@
 <laminarte-menu-container
   [open]="menuService.open$ | async"
+  [menuItems]="sectionsDataService.menuItems"
   (toggleVisibility)="menuService.toggleVisibility()">
 </laminarte-menu-container>
 
 <!-- <router-outlet></router-outlet>  For now not using router, check if it is worthy -->
 
-<div [@routerTransition]="getState(o)">
+<div [@detailTransition]="getState(o)">
   <router-outlet #o="outlet"></router-outlet>
 </div>

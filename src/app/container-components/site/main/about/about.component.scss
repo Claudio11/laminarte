@@ -4,6 +4,8 @@
   display: flex;
   position: relative;
   flex-direction: column;
+  background-color: black;
+  color: whitesmoke;
 
   .about-header {
     flex-grow: 1;
@@ -21,6 +23,12 @@
       justify-content: center;
       align-items: center;
       display: flex;
+
+      // TODO: Media queries for different sizes.
+      & > img {
+        width: 380px;
+        height: 400px;
+      }
     }
 
     .about-content {

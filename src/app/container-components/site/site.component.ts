@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, transition, query, style, group, animate, state, sequence, animateChild } from '@angular/animations';
 
 import { MenuService } from '../../services/menu-service/menu.service';
+import { SectionsDataService } from '../../services/sections-data/sections-data.service';
+import { MenuItem } from "../../models/menu-item.model";
 
-const routerTransition = trigger('routerTransition', [
+const detailTransition = trigger('detailTransition', [
   // TODO: Research angular animations more in depth. It's not finding :leave in child, forcing { optional: true }.
   transition('* => *', [
     query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
@@ -11,17 +13,20 @@ const routerTransition = trigger('routerTransition', [
     sequence([
       //TODO: => is not able to call animateChild why?
       query(':leave', animateChild(), { optional: true }),
-      group([
-        query(':leave', [
-          style({ transform: 'translateX(0%)' }),
-          animate('0.5s ease-in-out', style({ transform: 'translateX(100%)' }))
-        ], { optional: true }),
-        query(':enter', [
-          style({ transform: 'translateX(100%)' }),
-          animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' }))
-        ]),
+      //query(':enter', animateChild(), { optional: true }),
+
+      query(':leave', [
+        style({ position: 'translateX(0%)' }),
+        animate('0.5s ease-in-out', style({ transform: 'translateX(100%)' }))
+      ], { optional: true }),
+      query(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('0.5s ease-in-out', style({ transform: 'translateX(0%)' })),
       ]),
-      query(':enter', animateChild()),
+
+      //query(':enter', style({ transform: 'translateX(100%)' })),
+
+
     ])
   ])
 ]);
@@ -29,12 +34,15 @@ const routerTransition = trigger('routerTransition', [
 @Component({
   selector: 'laminarte-site',
   templateUrl: './site.component.html',
-  animations: [routerTransition],
+  animations: [detailTransition],
   styleUrls: ['./site.component.css']
 })
 export class SiteComponent implements OnInit {
 
-  constructor(public menuService: MenuService) { }
+  constructor(
+    public menuService: MenuService,
+    public sectionsDataService: SectionsDataService
+  ) { }
 
   ngOnInit() {
   }

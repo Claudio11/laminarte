@@ -10,10 +10,12 @@ import { MenuService } from './services/menu-service/menu.service';
 import { AppComponent } from './app.component';
 import { AppRouteModule } from './app.route';
 import { ProductService } from './services/product-service/product.service';
+import { SectionComponent } from './presentational-components/section/section.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SectionComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,7 @@ import { ProductService } from './services/product-service/product.service';
     ProductService
   ],
   exports: [
+    SectionComponent
   ],
   bootstrap: [AppComponent]
 })

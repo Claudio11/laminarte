@@ -3,7 +3,20 @@
   (toggleVisibility)="toggleVisibility.emit($event)">
 
   <div class="menu-content-container">
-    Menu ng content
+
+    <div class="menu-content">
+      <div
+        class="menu-item"
+        *ngFor="let menuItem of menuItems">
+
+        <span class="label-container">
+          {{menuItem.shortTitle}}
+        </span>
+
+      </div>
+      <div class="login-items"></div>
+    </div>
+
   </div>
 
 </laminarte-menu-opener>

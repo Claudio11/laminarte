@@ -1,12 +1,43 @@
 :host {
   height: 100vh;
   position: fixed;
-  width: 200px;
+  width: 300px;
   top: 0;
   right: 0;
 
   .menu-content-container {
     height: 100%;
-    background-color: grey;
+    width: 100%;
+    position: relative;
+    background-color: black;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .menu-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 42%;
+      height: 22%;
+      padding-left: 18px;
+      border-left: solid 1px lightgray;
+
+      .menu-item {
+        display: flex;
+        height: 100%;
+        color: white;
+        font-family: nunito;
+        text-transform: uppercase;
+        font-size: 1.1em;
+
+        .label-container {
+          position: absolute;
+          align-self: center;
+        }
+      }
+    }
   }
 }
