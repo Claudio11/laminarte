@@ -1,28 +1,39 @@
 :host {
   margin: 0 10%;
   display: flex;
+  position: relative;
+  flex-direction: column;
+  color: #c0c0c0;
+
+  .products-header {
+    flex-grow: 1;
+  }
 
   .viewport {
     height: 100%;
     overflow-y: auto;
+    flex-grow: 1;
+
     .content {
       height: auto;
-    }
-  }
 
-  .sections-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+      .sections-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
 
-    .section-container {
-      min-width: 200px;
-      min-height: 240px;
-      padding: 8px 14px;
+        .section-container {
+          min-width: 200px;
+          min-height: 240px;
+          padding: 8px 14px;
 
-      a {
-        text-decoration: none;
+          a {
+            text-decoration: none;
+          }
+        }
       }
     }
   }
+
+
 }

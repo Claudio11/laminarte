@@ -43,7 +43,7 @@ export class AttributeItem implements Previewable {
     return {
       title: this.name,
       subtitle: this.description,
-      mainImg: ''
+      thumbnail: ''
     };
   }
 

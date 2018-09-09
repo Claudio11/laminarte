@@ -42,7 +42,15 @@ export class SiteComponent implements OnInit {
   constructor(
     public menuService: MenuService,
     public sectionsDataService: SectionsDataService
-  ) { }
+  ) {
+    this.sectionsDataService.menuItems = [ // Hardcoding it for now, later make an observable data service for this.
+      new MenuItem('inicio', '', '', 'Inicio'),
+      new MenuItem('nosotros', 'Acerca de laminarte', 'Te contamos quiénes somos, a qué nos dedicamos y cuáles son nuestros objetivos.', 'Nosotros'),
+      new MenuItem('productos', 'Productos', 'Nuestros productos son 100% personalizados!', 'Productos'),
+      new MenuItem('servicios', 'Servicios', 'Contamos con una amplia gama de servicios, te invitamos a concerlos.', 'Servicios'),
+      new MenuItem('contacto', '', '', 'Contacto'),
+    ];
+  }
 
   ngOnInit() {
   }

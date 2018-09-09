@@ -1,21 +1,28 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Previewable } from '../../interfaces/previewable.interface';
+import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
 
+import { CardComponent } from '../card/card.component';
 /**
  * Just a card with title and description.
  */
 @Component({
   selector: 'laminarte-basic-card',
-  templateUrl: './basic-card.component.html',
-  styleUrls: ['./basic-card.component.scss']
+  templateUrl: '../card/card.component.html',
+  styleUrls: ['../card/card.component.scss']
 })
-export class BasicCardComponent implements OnInit {
+export class BasicCardComponent extends CardComponent {
 
-  @Input() item: Previewable;
+  // TODO: Continue, collapse if description is large (more than 1/3?).
+  private maxDescriptionHeight: number;
 
-  constructor() { }
+  public descriptionOverflown: boolean = false;
 
-  ngOnInit() {
+  constructor(protected elem: ElementRef) {
+    super();
+  }
+
+  ngAfterViewInit() {
+    //console.log('containerHeight', this.containerHeight);
+    console.log('elem', this.elem.nativeElement.offsetHeight);
   }
 
 }

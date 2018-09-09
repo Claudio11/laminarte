@@ -1,17 +1,23 @@
+<div class="products-header">
+  <laminarte-section-header
+    [title]="menuItem.title"
+    [subtitle]="menuItem.subtitle"
+    [separator]="'assets/shared/header/separator-grey.png'"
+    [titleColor]="'#424242'">
+  </laminarte-section-header>
+</div>
+
 <div class="viewport">
   <div class="content">
-    <div class="header">
-      Products
-    </div>
     <div class="sections-container">
       <div
         *ngFor="let product of products"
         class="section-container">
 
         <a [routerLink]="['./products', 'hardcodedId']">
-          <laminarte-card
+          <laminarte-products-card
             [item]="product">
-          </laminarte-card>
+          </laminarte-products-card>
         </a>
 
       </div>

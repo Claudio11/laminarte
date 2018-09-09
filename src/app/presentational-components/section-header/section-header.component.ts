@@ -10,6 +10,7 @@ export class SectionHeaderComponent implements OnInit {
   @Input() title: string;
   @Input() subtitle: string;
   @Input() separator: string; // Image url.
+  @Input() titleColor: string = 'white';
 
   constructor() { }
 

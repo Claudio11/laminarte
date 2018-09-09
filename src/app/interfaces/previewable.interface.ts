@@ -3,6 +3,6 @@ export interface Previewable {
   getPreviewData(): {
     title: string,
     subtitle: string,
-    mainImg: string,
+    thumbnail: string,
   };
 }

@@ -1,7 +1,9 @@
-<div
-  class="thumbnail"
-  [style.background-image]="'url(/assets/dummy/docker.png)'">
-</div>
-<div class="label-container">
+<div class="title-container">
   {{item.getPreviewData().title}}
+</div>
+
+<div class="description-viewport">
+  <div class="description-content">
+    {{item.getPreviewData().subtitle}}
+  </div>
 </div>

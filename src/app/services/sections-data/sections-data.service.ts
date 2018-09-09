@@ -26,15 +26,7 @@ export class SectionsDataService {
     this._menuItems = value;
   }
 
-  constructor() {
-    this.menuItems = [ // Hardcoding it for now, later make an observable data service for this.
-      new MenuItem('inicio', '', '', 'Inicio'),
-      new MenuItem('nosotros', 'Acerca de laminarte', 'Te contamos quiénes somos, a qué nos dedicamos y cuáles son nuestros objetivos.', 'Nosotros'),
-      new MenuItem('productos', '', '', 'Productos'),
-      new MenuItem('servicios', '', '', 'Servicios'),
-      new MenuItem('contacto', '', '', 'Contacto'),
-    ];
-  }
+  constructor() { }
 
   /**
    * Given a menu item key (name), it returs the menu item if it exists.

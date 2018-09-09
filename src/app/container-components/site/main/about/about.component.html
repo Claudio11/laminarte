@@ -2,8 +2,7 @@
   <laminarte-section-header
     [title]="menuItem.title"
     [subtitle]="menuItem.subtitle"
-    [separator]="'assets/shared/header/separator-white.png'"
-  >
+    [separator]="'assets/shared/header/separator-white.png'">
   </laminarte-section-header>
 </div>
 
@@ -16,11 +15,12 @@
   <div class="about-content">
 
     <div class="attributes-container">
-      <laminarte-basic-card
-        *ngFor="let item of items"
-        [item]="item">
 
+      <laminarte-basic-card
+        *ngFor="let item of basicItems"
+        [item]="item">
       </laminarte-basic-card>
+
     </div>
 
   </div>

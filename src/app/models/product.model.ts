@@ -82,7 +82,7 @@ export class Product implements Previewable {
     return {
       title: this.name,
       subtitle: this.description,
-      mainImg: this.thumbnail || ''
+      thumbnail: this.thumbnail || ''
     };
   }
 

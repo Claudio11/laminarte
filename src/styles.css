@@ -6,6 +6,11 @@
 }
 
 @font-face {
+  font-family: nunito-bold;
+  src: url('assets/fonts/nunito/Nunito-Bold.ttf') format('truetype');
+}
+
+@font-face {
   font-family: nunito-light;
   src: url('assets/fonts/nunito/Nunito-Light.ttf') format('truetype');
 }
@@ -22,4 +27,5 @@
 
 body {
     overflow-x: hidden;
+    background-color: white;
 }

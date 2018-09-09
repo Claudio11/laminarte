@@ -1,5 +1,10 @@
 <div class="services-header">
-  Services header
+  <laminarte-section-header
+    [title]="menuItem.title"
+    [subtitle]="menuItem.subtitle"
+    [separator]="'assets/shared/header/separator-grey.png'"
+    [titleColor]="'white'">
+  </laminarte-section-header>
 </div>
 
 <div class="services-body">
@@ -7,8 +12,7 @@
 
     <div
       class="service-container"
-      *ngFor="let product of products | slice:0:4"
-    >
+      *ngFor="let product of products | slice:0:4">
 
       <div class="product-image-container">
         <!-- TODO: Switch by product image -->
@@ -16,7 +20,7 @@
       </div>
 
       <div class="card-container">
-        <laminarte-basic-card [item]="product"></laminarte-basic-card>
+        <laminarte-services-card [item]="product"></laminarte-services-card>
       </div>
     </div>
 

@@ -65,7 +65,7 @@ export class MenuItem implements Previewable {
     return {
       title: this.title,
       subtitle: this.subtitle,
-      mainImg: ''
+      thumbnail: ''
     };
   }
 
