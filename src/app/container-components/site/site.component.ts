@@ -10,6 +10,7 @@ const detailTransition = trigger('detailTransition', [
   transition('* => *', [
     query(':enter, :leave', style({ position: 'fixed', width: '100%' }), { optional: true }),
     query(':enter', style({ transform: 'translateX(100%)' })),
+
     sequence([
       //TODO: => is not able to call animateChild why?
       query(':leave', animateChild(), { optional: true }),
@@ -48,7 +49,8 @@ export class SiteComponent implements OnInit {
       new MenuItem('nosotros', 'Acerca de laminarte', 'Te contamos quiénes somos, a qué nos dedicamos y cuáles son nuestros objetivos.', 'Nosotros'),
       new MenuItem('productos', 'Productos', 'Nuestros productos son 100% personalizados!', 'Productos'),
       new MenuItem('servicios', 'Servicios', 'Contamos con una amplia gama de servicios, te invitamos a concerlos.', 'Servicios'),
-      new MenuItem('contacto', '', '', 'Contacto'),
+      new MenuItem('estimado', 'Presupuesto', 'Solicita tu presuppuesto personalizado. Te responderemos a la brevedad', 'Presupuesto'),
+      new MenuItem('contacto', 'Contacto', ' Mantente en contacto bla bla bla', 'Contacto'),
     ];
   }
 

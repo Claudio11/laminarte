@@ -14,4 +14,9 @@ export class ProductsComponent extends SectionComponent {
 
   protected key: string = 'productos';
 
+  onGoToPage2(e) {
+    console.log('e', e);
+
+  }
+
 }

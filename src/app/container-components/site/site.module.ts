@@ -21,6 +21,7 @@ import { ProductsCardComponent } from '../../presentational-components/products-
 import { ServicesCardComponent } from '../../presentational-components/services-card/services-card.component';
 import { ScrollerDirective } from '../../directives/scroller/scroller.directive';
 import { ScrollerItemDirective } from '../../directives/scroller/scroller-item/scroller-item.directive';
+import { EstimateComponent } from './main/estimate/estimate.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { ScrollerItemDirective } from '../../directives/scroller/scroller-item/s
     ServicesCardComponent,
     ProductsCardComponent,
     ScrollerDirective,
-    ScrollerItemDirective
+    ScrollerItemDirective,
+    EstimateComponent
   ],
   exports: [
     ScrollerDirective,

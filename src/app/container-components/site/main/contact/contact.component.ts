@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SectionComponent } from '../../../../presentational-components/section/section.component';
+
 @Component({
   selector: 'laminarte-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent extends SectionComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  protected key: string = 'contacto';
 
 }

@@ -10,6 +10,7 @@ import { MenuService } from './services/menu-service/menu.service';
 import { AppComponent } from './app.component';
 import { AppRouteModule } from './app.route';
 import { ProductService } from './services/product-service/product.service';
+import { AnimationService } from './services/animation-service/animation.service';
 import { SectionComponent } from './presentational-components/section/section.component';
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SectionComponent } from './presentational-components/section/section.co
   ],
   providers: [
     MenuService,
-    ProductService
+    ProductService,
+    AnimationService
   ],
   exports: [
     SectionComponent
