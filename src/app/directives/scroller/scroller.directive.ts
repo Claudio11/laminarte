@@ -3,6 +3,7 @@ import { BehaviorSubject, timer } from "rxjs";
 import { debounceTime, tap } from 'rxjs/operators';
 
 import { ScrollerItemDirective } from './scroller-item/scroller-item.directive';
+import { AnimationService } from '../../services/animation-service/animation.service';
 
 interface ScrollMetadata {
   incomingSection: ScrollerItemDirective;
@@ -18,6 +19,7 @@ export class ScrollerDirective {
   protected sections: ScrollerItemDirective[] = [];
   protected currentSectionIndex: number = 0;
   protected scrollAvailable: boolean = true;
+  protected scrollingDown: boolean = true;
 
   protected switchSection$: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
   protected elementScroll$: BehaviorSubject<Event> = new BehaviorSubject<any>(undefined); // Imperative so it's able to unsubscribe.
@@ -29,7 +31,10 @@ export class ScrollerDirective {
     this.elementScroll$.next(event);
   }
 
-  constructor(protected element: ElementRef) { }
+  constructor(
+    protected element: ElementRef,
+    protected animationService: AnimationService
+  ) { }
 
   ngAfterContentInit() {
     this.sections = this.sectionsQueryList.toArray();
@@ -37,28 +42,41 @@ export class ScrollerDirective {
     this.switchSection$
       .subscribe(scrollMetadata => {
         if (scrollMetadata) {
-          // Replace animated scroll by requestAnimationFrame (https://developer.mozilla.org/en-US/docs/Web/Events/scroll), may be the cause of not being able to throttle.
-          window.scrollTo({
-            top: scrollMetadata.incomingSection ? scrollMetadata.incomingSection.getOffsetTop() : 0,
-            behavior: 'smooth' // TODO: Create fallback.
-          });
-          this.setIncomingSectionAsCurrent(scrollMetadata.scrollingDown);
+          this.scrollToSection(scrollMetadata);
         }
       });
 
-    this.elementScroll$
-      //.pipe(throttleTime(1000)) // TODO: Doesn't work, also misplace the section (?).
-      .subscribe(event => this.onElementScroll(event));
+    this.animationService.animationEnded().subscribe(() => {
+      this.setIncomingSectionAsCurrent(this.scrollingDown);
+      this.scrollAvailable = true;
+    });
 
-    this.elementScroll$
-      .pipe(tap(() => this.scrollAvailable = false))
-      .pipe(debounceTime(300)).subscribe(() => this.scrollAvailable = true)
+    this.elementScroll$.subscribe(event => this.onElementScroll(event));
+  }
+
+  /**
+   * Scrolls to the section in given scroll metadata.
+   *
+   * @param scrollMetadata Scroll metadata.
+   */
+  scrollToSection(scrollMetadata) { // TODO: Add type of scrollMetadata.
+    if (scrollMetadata.incomingSection) {
+      this.animationService.animateScroll(
+        scrollMetadata.incomingSection.getOffsetTop(),
+        window.scrollY,
+        2000,
+        window,
+        false
+      );
+
+      this.scrollAvailable = false;
+    }
   }
 
   /**
    * Returns true if the user is scrolling down, false otherwise.
    */
-  private scrollingDown(window: Window) {
+  private isScrollingDown(window: Window) {
     return window.pageYOffset > this.lastViewportOffset;
   }
 
@@ -118,7 +136,7 @@ export class ScrollerDirective {
    * @param Current window.
    * @param scrollingDown True if the user is scrolling down, false otherwise.
    */
-  private scrollToCorrectSection(window: Window, scrollingDown: boolean) {
+  private goToCorrectSection(window: Window, scrollingDown: boolean) {
     if (this.sections && this.sections[this.currentSectionIndex]) {
       const incomingSection: ScrollerItemDirective = this.getIncomingSection(scrollingDown);
 
@@ -133,7 +151,8 @@ export class ScrollerDirective {
   }
 
   private onElementScroll(event: Event) {
-    this.scrollToCorrectSection(window, this.scrollingDown(window));
+    this.scrollingDown = this.isScrollingDown(window);
+    this.goToCorrectSection(window, this.scrollingDown);
     this.lastViewportOffset = window.pageYOffset;
   }
 }

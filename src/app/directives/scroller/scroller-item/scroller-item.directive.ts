@@ -15,4 +15,8 @@ export class ScrollerItemDirective {
     return this.elem.nativeElement.offsetHeight;
   }
 
+  getNativeElement() {
+    return this.elem.nativeElement;
+  }
+
 }
